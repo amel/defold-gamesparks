@@ -1,0 +1,10 @@
+[project]
+title = GameSparksSDK
+version = 0.9
+
+[script]
+shared_state = 1
+
+[library]
+include_dirs = gamesparks
+
