@@ -152,7 +152,7 @@ function Stream:writeChars(buffer, position, length)
     newBuffer = string.sub(self.buffer, 1, self.position) .. subString
     
     if self.position + newLength + 1 <= #self.buffer then
-      newBuffer = newBuffer .. string.sub(self.buffer, position + newLength + 1)
+      newBuffer = newBuffer .. string.sub(self.buffer, self.position + newLength + 1)
     end
   end
   

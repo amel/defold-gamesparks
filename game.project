@@ -1,6 +1,7 @@
 [project]
 title = GameSparksSDK
 version = 0.9
+custom_resources = gamesparks/dmc_corona.cfg
 
 [script]
 shared_state = 1

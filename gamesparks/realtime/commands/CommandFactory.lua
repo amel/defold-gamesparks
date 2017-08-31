@@ -4,6 +4,7 @@ PooledObjects = PooledObjects or require("gamesparks.realtime.pools.PooledObject
 LimitedPositionStream = LimitedPositionStream or require("gamesparks.realtime.proto.LimitedPositionStream")
 CustomCommand = CustomCommand or require("gamesparks.realtime.commands.CustomCommand")
 LoginResult = LoginResult or require("gamesparks.realtime.commands.results.LoginResult")
+PingResult = PingResult or require("gamesparks.realtime.commands.results.PingResult")
 PlayerConnectMessage = PlayerConnectMessage or require("gamesparks.realtime.commands.results.PlayerConnectMessage")
 UDPConnectMessage = UDPConnectMessage or require("gamesparks.realtime.commands.results.UDPConnectMessage")
 PlayerDisconnectMessage = PlayerDisconnectMessage or require("gamesparks.realtime.commands.results.PlayerDisconnectMessage")

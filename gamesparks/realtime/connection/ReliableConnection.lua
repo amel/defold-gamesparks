@@ -16,9 +16,7 @@ function ReliableConnection.new(remotehost, remoteport, session)
   
   instance.onConnect = function(event)
     if event.status == instance.client.CONNECTED then
-      instance.session:log("ReliableConnection", GameSparksRT.logLevel.DEBUG, " TCP Connection Established")
-      
-      if instance.stopped then
+      if instance.stopped or instance.session == nil then
         if instance.client ~= nil then
           instance.client:close()
           instance.client = nil
@@ -26,23 +24,29 @@ function ReliableConnection.new(remotehost, remoteport, session)
         
         return
       end 
+    
+	  instance.session:log("ReliableConnection", GameSparksRT.logLevel.DEBUG, " TCP Connection Established")
       
       local loginCmd = LoginCommand:new(instance.session.connectToken)
 		
       instance:send(loginCmd)
     elseif event.status == instance.client.CLOSED then
-      instance.session:log("ReliableConnection", GameSparksRT.logLevel.DEBUG, " TCP Connection Closed")
-
+	  if instance.session ~= nil then
+      	instance.session:log("ReliableConnection", GameSparksRT.logLevel.DEBUG, " TCP Connection Closed")
+      end 
+      
       if not instance.stopped and instance.client ~= nil then
         --timer.performWithDelay(1000, function() 
-        timer.seconds(1.0, function()
+        --[[timer.seconds(1.0, function()
           instance.session:log("ReliableConnection", GameSparksRT.logLevel.DEBUG, " Reconnecting") 
           
           instance.client:reconnect( { onConnect = instance.onConnect } ) 
-        end)
+        end)]]--
       end
     else
-      instance.session:log("ReliableConnection", GameSparksRT.logLevel.DEBUG, " TCP Connection Error")
+	  if instance.session ~= nil then
+      	instance.session:log("ReliableConnection", GameSparksRT.logLevel.DEBUG, " TCP Connection Error")
+      end
       
       print(event.emsg)
     end
@@ -102,6 +106,8 @@ function ReliableConnection:send(request)
     local ret = Packet.serializeLengthDelimited(stream, p)
     --print("b", stream:getPosition(), stream:getLength())
     
+    --print(stream:toHex())
+    
     self.client:send(stream:toString())
     
     PooledObjects.packetPool:push(p)
@@ -121,7 +127,7 @@ function ReliableConnection:read(stream, p)
   p.reliable = true
   
   local ret = Packet.deserializeLengthDelimited(stream, p)
-  --print("ret", ret)
+  --print("ret", ret, tostring(p.reliable))
   
   if p.reliable == nil then
     p.reliable = true

@@ -2,7 +2,7 @@ RTRequest = RTRequest or require("gamesparks.realtime.commands.requests.RTReques
 PooledObjects = PooledObjects or require("gamesparks.realtime.pools.PooledObjects")
 YaciCode12 = YaciCode12 or require("gamesparks.realtime.YaciCode12")
 
-CustomRequest = newclass("LoginCommand", RTRequest)
+CustomRequest = newclass("CustomRequest", RTRequest)
 
 PooledObjects.customRequestPool = ObjectPool.new(function()
   return CustomRequest:new()
