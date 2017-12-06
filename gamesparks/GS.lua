@@ -1,6 +1,5 @@
 local customjson = require("gamesparks.dmc_corona.lib.dmc_lua.json")
 local crypto = require("crypto.crypto")
-local mime = require("defnet.socket.mime")
 local WebSockets = require("gamesparks.dmc_corona.dmc_websockets")
 local GSRequestBuilder = require("gamesparks.GSRequestBuilder")
 local GSMessageHandler = require("gamesparks.GSMessageHandler")

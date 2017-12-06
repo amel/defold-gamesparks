@@ -137,7 +137,6 @@ local dmc_websockets_data = Utils.extend( dmc_lib_data.dmc_websockets, DMC_WEBSO
 --== Imports
 
 
-local mime = require("defnet.socket.mime")
 local urllib = require("gamesparks.url")
 
 local ByteArray = require 'gamesparks.dmc_corona.lib.dmc_lua.lua_bytearray'
