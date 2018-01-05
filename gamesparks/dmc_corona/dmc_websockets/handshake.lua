@@ -57,7 +57,6 @@ local VERSION = "1.2.0"
 --== Imports
 
 
-local mime = require("defnet.socket.mime")
 local Patch = require 'gamesparks.dmc_corona.lib.dmc_lua.lua_patch'
 local SHA1 = require 'gamesparks.dmc_corona.lib.sha1'
 
