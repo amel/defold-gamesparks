@@ -58,7 +58,7 @@ function createGS(_name)
     deviceID = "",
     platform = "",
     SDK = "Defold",
-    VERSION = "1.2.1",
+    VERSION = "1.2.2",
 
     origRetryBase = 2000,
     retryBase,
@@ -324,6 +324,11 @@ function createGS(_name)
       
       if response.connectUrl ~= nil then
         self.log("Changing connect url to " .. response.connectUrl)
+
+        if self.handShakeTimeout ~= nil then
+          delay.cancel(self.handShakeTimeout)
+          self.handShakeTimeout = nil
+        end
         
         runtime.removeEventListener("enterFrame", self.processQueues)
         
@@ -333,6 +338,17 @@ function createGS(_name)
         self.url = response.connectUrl
 
         self.connectionAttempts = 0
+
+        if self.socket ~= nil then
+          self.socket:close()
+        end
+        
+        local p = {uri = self.url, timeout = self.origRetryMax + self.origHandshakeOffset + 1000}
+
+        if self.networkAvailable then
+          self.socket = WebSockets:new(p)
+          self.socket:addEventListener(self.socket.EVENT, self.webSocketsEventHandler)
+        end
         
         return
       end
