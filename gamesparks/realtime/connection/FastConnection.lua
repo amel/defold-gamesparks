@@ -102,7 +102,7 @@ function FastConnection:doLogin()
   
       self:send(loginCmd)    
         
-      timer.seconds(self.reconnectSleep / 1000, function() self:doLogin() end)
+      timer.delay(self.reconnectSleep / 1000, false, function() self:doLogin() end)
     else
       self.session:onReady(true)
     end

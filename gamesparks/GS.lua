@@ -284,7 +284,7 @@ function createGS(_name)
     if self.internalConnected() then
       self.internalSend(" ")
     
-      timer.seconds(30, function() self.internalKeepAlive() end)
+      timer.delay(30, false, function() self.internalKeepAlive() end)
     end
   end
   
@@ -326,7 +326,7 @@ function createGS(_name)
         self.log("Changing connect url to " .. response.connectUrl)
 
         if self.handShakeTimeout ~= nil then
-          delay.cancel(self.handShakeTimeout)
+          timer.cancel(self.handShakeTimeout)
           self.handShakeTimeout = nil
         end
         
@@ -517,7 +517,7 @@ function createGS(_name)
       if self.connectionAttempts == 0 or self.mustConnectBy < runtime.getTimer() then
         self.connect(true)
       else
-        timer.seconds((self.mustConnectBy - runtime.getTimer()) / 1000, function() self.connect(true) end)
+        timer.delay((self.mustConnectBy - runtime.getTimer()) / 1000, false, function() self.connect(true) end)
       end
     end
   end
@@ -546,7 +546,7 @@ function createGS(_name)
       if self.connectionAttempts == 0 or self.mustConnectBy < runtime.getTimer() then
         self.connect(true)
       else
-        timer.seconds((self.mustConnectBy - runtime.getTimer()) / 1000, function() self.connect(true) end)
+        timer.delay((self.mustConnectBy - runtime.getTimer()) / 1000, false, function() self.connect(true) end)
       end
     else
       self.log("Websocket error")
@@ -610,7 +610,7 @@ function createGS(_name)
 
     self.log("*** GameSparks SDK v" .. self.VERSION .. " connecting to " .. self.url)
    
-    self.handShakeTimeout = timer.seconds((self.mustConnectBy - runtime.getTimer()) / 1000, function() 
+    self.handShakeTimeout = timer.delay((self.mustConnectBy - runtime.getTimer()) / 1000, false, function() 
       self.log("Try again...")
 
 	  self.disconnect(false)
@@ -673,7 +673,7 @@ function createGS(_name)
       LinkedList.pushlast(self.itemsToSend, request)
       
       --local tm = timer.performWithDelay(request:getTimeoutSeconds() * 1000, timeoutRequest, 1)
-      timer.seconds(request:getTimeoutMilliSeconds() / 1000, function() self.timeoutRequest(request) end)
+      timer.delay(request:getTimeoutMilliSeconds() / 1000, false, function() self.timeoutRequest(request) end)
       --tm.param = request
     end
   end

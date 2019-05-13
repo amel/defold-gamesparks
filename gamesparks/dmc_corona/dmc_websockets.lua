@@ -169,7 +169,7 @@ local ObjectBase = Objects.ObjectBase
 local assert = assert
 local sgmatch = string.gmatch
 local sgettimer = runtime.getTimer --system.getTimer
-local tdelay = timer.seconds --timer.performWithDelay
+local tdelay = timer.delay --timer.performWithDelay
 local tcancel = timer.cancel
 local tinsert = table.insert
 local tconcat = table.concat
@@ -1045,7 +1045,7 @@ function WebSocket:do_state_closing_connection( params )
 			self._close_timer = nil
 			self:gotoState( WebSocket.STATE_CLOSED, { code=params.code, reason=params.reason } )
 		end
-		self._close_timer = tdelay(4.0, function() f() end)  --tdelay( 4000, f )
+		self._close_timer = tdelay(4.0, false, function() f() end)  --tdelay( 4000, f )
 	end
 
 end

@@ -16,7 +16,7 @@ local function part2()
       GSHelperMethods.waitForShutdownInstance("GSInstanceStress2", function()
         i = i + 1
         
-        timer.seconds(1.5, function() part2() end)       
+        timer.delay(1.5, false, function() part2() end)       
       end)
     end)
   else

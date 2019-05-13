@@ -34,7 +34,7 @@ function CountdownLatch:wait(timeout, callback)
   
   self.startTime = os.time()
   
-  self.myTimer = timer.repeating(0.1, function() self:timer() end)
+  self.myTimer = timer.delay(0.1, true, function() self:timer() end)
 end
 
 function CountdownLatch:timer()

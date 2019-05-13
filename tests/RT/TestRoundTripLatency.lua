@@ -39,7 +39,7 @@ function TestRoundTripLatency:start(writeTextFunc)
     
     local i = 0
     
-    timerID = timer.repeating(0.03, function(event)
+    timerID = timer.delay(0.03, true, function(event)
       if i < 10 then
         self.ctx.sessions[1].session:sendRTData(2, GameSparksRT.deliveryIntent.UNRELIABLE, RTData.get():setLong(1, self:epochTime()))
       else

@@ -15,7 +15,7 @@ function runtime.addEventListener(eventName, listener)
  		table.insert(runtime.enterFrameEvents, listener)
  		
  		if runtime.enterFrameID == nil then
- 			runtime.enterFrameID = timer.repeating(1.0 / 60.0, function()
+			runtime.enterFrameID = timer.delay(1.0 / 60.0, true, function()
  				if not runtime.enterFrameRunning then
  					runtime.enterFrameRunning = true
  					

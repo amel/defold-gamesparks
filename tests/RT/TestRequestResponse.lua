@@ -36,7 +36,7 @@ function TestRequestResponse:start(writeTextFunc)
     self.ctx.sessions[1].session:sendRTData(422, GameSparksRT.deliveryIntent.UNRELIABLE, nil)
     self.ctx.sessions[1].session:sendRTData(422, GameSparksRT.deliveryIntent.UNRELIABLE, nil)
     
-    timer.seconds(2.0, function(event)
+    timer.delay(2.0, false, function(event)
       self.ctx:stop()
       
       writeText("PASSED!\n")

@@ -14,7 +14,7 @@ function AutoResetEvent.waitOne(autoResetEvent, timeout, callback)
   
   autoResetEvent.startTime = os.time()
   
-  autoResetEvent.myTimer = timer.repeating(0.1, function() AutoResetEvent.checkSet(autoResetEvent) end)
+  autoResetEvent.myTimer = timer.delay(0.1, true, function() AutoResetEvent.checkSet(autoResetEvent) end)
 end
 
 function AutoResetEvent.checkSet(autoResetEvent)

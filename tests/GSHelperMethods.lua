@@ -200,11 +200,11 @@ function GSHelperMethods.connectTest(testMethod, callback)
 			instances[i].connect()
 		end
 
-		timer.seconds(GSHelperMethods.RUN_FOR, function()
+		timer.delay(GSHelperMethods.RUN_FOR, false, function()
 			GSHelperMethods.forceDisconnectionInstances()
 
 			GSHelperMethods.sendControlMessage("GET_REPORT", function()
-				timer.seconds(1.0, function() 
+				timer.delay(1.0, false, function()
 					GSHelperMethods.forceDisconnectionInstances()
 
 					callback()
@@ -255,20 +255,20 @@ function GSHelperMethods.waitForShutdownInstance(name, callback)
   GSHelperMethods.callback = callback
   
   GSHelperMethods.shutDownInstance(name, function()
-    timer.seconds(1.0, function() AutoResetEvent.set(ev) end)
+    timer.delay(1.0, false, function() AutoResetEvent.set(ev) end)
   end)
   
   AutoResetEvent.waitOne(ev, GSHelperMethods.REQUEST_TIMEOUT, GSHelperMethods.waitForShutdownPart2)
 end
 
 function GSHelperMethods.waitForShutdown(gs, callback)
-  timer.seconds(1.5, function()
+  timer.delay(1.5, false, function()
     local ev = AutoResetEvent.new(false)
     
     GSHelperMethods.callback = callback
     
     GSHelperMethods.shutDown(gs, function()
-      timer.seconds(1.0, function() AutoResetEvent.set(ev) end)
+      timer.delay(1.0, false, function() AutoResetEvent.set(ev) end)
     end)
     
     AutoResetEvent.waitOne(ev, GSHelperMethods.REQUEST_TIMEOUT, GSHelperMethods.waitForShutdownPart2)
@@ -282,7 +282,7 @@ function GSHelperMethods.shutDownInstance(name, callback)
     GSHelperMethods.disconnectInstance(gs) 
     
     if callback ~= nil then
-      timer.seconds(1.0, function() callback() end)
+      timer.delay(1.0, false, function() callback() end)
     end
   end)
   
@@ -294,7 +294,7 @@ function GSHelperMethods.shutDown(gs, callback)
     GSHelperMethods.disconnectInstance(gs)
    
     if callback ~= nil then
-      timer.seconds(1.0, function() callback() end)
+      timer.delay(1.0, false, function() callback() end)
     end
   end)
 end
@@ -406,7 +406,7 @@ function GSHelperMethods.deliverTestPart2(timedout)
     end
   end
 
-  timer.seconds(GSHelperMethods.RUN_FOR, function()
+  timer.delay(GSHelperMethods.RUN_FOR, false, function()
     GSHelperMethods.forceDisconnectionInstances()
 
     GSHelperMethods.sendControlMessage("GET_REPORT", GSHelperMethods.deliverTestPart3)
@@ -414,7 +414,7 @@ function GSHelperMethods.deliverTestPart2(timedout)
 end
 
 function GSHelperMethods.deliverTestPart3()
-  timer.seconds(1.0, function() 
+  timer.delay(1.0, false, function()  
     GSHelperMethods.forceDisconnectionInstances()
 
     GSHelperMethods.callback2()

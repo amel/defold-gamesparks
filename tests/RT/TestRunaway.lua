@@ -35,7 +35,7 @@ function TestRunaway:start(writeTextFunc)
   self.ctx = self:getTestContext(1, true, function()
     self.ctx.sessions[1].session:sendRTData(123, GameSparksRT.deliveryIntent.UNRELIABLE, nil)
     
-    timer.seconds(2.0, function(event)
+    timer.delay(2.0, false, function(event)
       self.ctx:stop()
       
       writeText("PASSED!\n")
