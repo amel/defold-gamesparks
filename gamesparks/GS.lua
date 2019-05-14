@@ -58,7 +58,7 @@ function createGS(_name)
     deviceID = "",
     platform = "",
     SDK = "Defold",
-    VERSION = "1.2.2",
+    VERSION = "1.2.3",
 
     origRetryBase = 2000,
     retryBase,
